@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1d1b16; --muted:#6b6459; --line:#e6e0d6; --paper:#fbf8f3; --card:#fff;
-    --accent:#7a2e2e; --closed:#b00000; --likely:#b9690f; --open:#2e7d32; --unknown:#8a8378; --heart:#c0392b;
+    --ink:#16130f; --muted:#726c62; --line:#eceae3; --paper:#fbfaf7; --card:#ffffff;
+    --accent:#9c2b2b; --closed:#b01c1c; --likely:#b06a12; --open:#2f7d4d; --unknown:#8a847a; --heart:#b23636;
     --disp:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   }
   *{box-sizing:border-box}
@@ -18,9 +18,9 @@
   .wrap{max-width:1240px;margin:0 auto;padding:28px 20px 60px;}
   h1{font-family:var(--disp);font-size:38px;font-weight:600;margin:0 0 2px;letter-spacing:.2px}
   .sub{color:var(--muted);font-size:14px;margin:0 0 16px;font-style:italic}
-  .nav{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;margin:0 0 16px}
-  .nav a{color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:5px 10px;border-radius:7px;background:var(--card)}
-  .nav a:hover{background:#f3ece1}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;margin:0 0 16px}
+  .nav a{color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:6px 11px;border-radius:7px;background:var(--card);white-space:nowrap;display:inline-block;line-height:1.2}
+  .nav a:hover{background:#f4f2ec}
   .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px;
     font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
   .controls input,.controls select{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);
@@ -38,16 +38,16 @@
     border-radius:10px;overflow:hidden;font-size:14.5px;table-layout:fixed}
   col.c-fav{width:3.2%} col.c-name{width:12.5%} col.c-cat{width:9%} col.c-nh{width:11.5%}
   col.c-drive{width:8%} col.c-sun{width:8.5%} col.c-open{width:11%} col.c-addr{width:14.5%} col.c-desc{width:26%}
-  thead th{position:sticky;top:0;background:#f1ebe1;text-align:left;padding:10px 12px;cursor:pointer;
+  thead th{position:sticky;top:0;background:#f5f3ee;text-align:left;padding:10px 12px;cursor:pointer;
     font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;text-transform:uppercase;
     letter-spacing:.5px;color:#5a534a;border-bottom:1px solid var(--line);user-select:none}
   thead th.favh{text-align:center;padding:10px 4px;color:var(--heart);font-size:14px}
-  thead th:hover{background:#ece4d7}
+  thead th:hover{background:#eeece5}
   thead th .arr{color:var(--accent);font-size:11px;margin-left:3px}
   tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:break-word}
   tbody td.fav{text-align:center;padding:10px 2px}
   tbody tr:last-child td{border-bottom:none}
-  tbody tr:hover{background:#faf6ef}
+  tbody tr:hover{background:#f7f6f2}
   .heart{cursor:pointer;background:none;border:none;font-size:18px;line-height:1;color:#cbb8a8;padding:2px}
   .heart.on{color:var(--heart)}
   .name{font-family:var(--disp);font-weight:600;font-size:17px;line-height:1.18;letter-spacing:.2px}
@@ -83,7 +83,7 @@
 <div class="wrap">
   <h1>Edinburgh Guide</h1>
   <p class="sub">From Yolo Journal's "My Edinburgh List" — stay, eat, drink, shop &amp; do, in one sortable table with looked-up addresses. Filter by Category or Area, tap a heart to save favorites. Hours shift; confirm ahead.</p>
-  <div class="nav"><a href="index.html">Home</a> &nbsp; <a href="Rome_EatDrink_Guide.html">Rome · Eat+Drink</a> &nbsp; <a href="Rome_Shopping_Guide.html">Rome · Shopping</a> &nbsp; <a href="Edinburgh_Guide.html">Edinburgh</a> &nbsp; <a href="Madrid_Guide.html">Madrid</a> &nbsp; <a href="Menorca_Guide.html">Menorca</a></div>
+  <div class="nav"><a href="index.html">Home</a><a href="Rome_EatDrink_Guide.html">Rome · Eat+Drink</a><a href="Rome_Shopping_Guide.html">Rome · Shopping</a><a href="Edinburgh_Guide.html">Edinburgh</a><a href="Madrid_Guide.html">Madrid</a><a href="Menorca_Guide.html">Menorca</a></div>
   <div class="legend"><span><span class="dot" style="background:var(--open)"></span>Open Sun</span><span><span class="dot" style="background:var(--closed)"></span>Closed Sun</span><span><span class="dot" style="background:var(--likely)"></span>Likely closed Sun</span><span><span class="dot" style="background:var(--unknown)"></span>Sun unverified</span></div>
   <p class="legnote">The Sun tag flags Sunday closures; the Open / hours column shows the weekly closing day or opening note. Monday and Tuesday are the common closing days for Edinburgh restaurants. A couple of spots flagged permanently closed were removed; a few marked "verify" had conflicting hours online.</p>
   <div class="controls">
