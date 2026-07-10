@@ -4,17 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matthew Demmer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1d1b16; --muted:#6b6459; --line:#e6e0d6; --paper:#fbf8f3; --card:#fff; --accent:#7a2e2e;
+    --disp:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--paper);
+  body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);
     -webkit-font-smoothing:antialiased;}
   .wrap{max-width:860px;margin:0 auto;padding:72px 24px 80px;}
   header{margin-bottom:64px}
-  h1{font-size:44px;margin:0 0 8px;letter-spacing:.4px}
-  .tagline{font-size:17px;color:var(--muted);margin:0;font-style:italic}
+  h1{font-family:var(--disp);font-size:54px;font-weight:600;margin:0 0 8px;letter-spacing:.3px;line-height:1.05}
+  .tagline{font-size:16px;color:var(--muted);margin:0;font-style:italic}
   h2{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;
     text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin:0 0 18px;font-weight:600}
   section{margin-bottom:56px}
@@ -25,7 +29,7 @@
   .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(60,40,20,.08);border-color:#d8cfc1}
   .eyebrow{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:11px;text-transform:uppercase;
     letter-spacing:1.5px;color:var(--muted);margin:0 0 6px}
-  .card h3{font-size:22px;margin:0 0 8px}
+  .card h3{font-family:var(--disp);font-weight:600;font-size:26px;margin:0 0 8px;letter-spacing:.2px;line-height:1.1}
   .card p{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13.5px;line-height:1.5;
     color:var(--muted);margin:0 0 14px}
   .go{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;font-weight:600;color:var(--accent)}
@@ -66,6 +70,12 @@
         <p class="eyebrow">Madrid</p>
         <h3>The Whole List</h3>
         <p>Stay, eat, drink, shop, nightlife &amp; do — one sortable table, with Yolo and Katie B picks tagged.</p>
+        <span class="go">Open guide →</span>
+      </a>
+      <a class="card" href="Menorca_Guide.html">
+        <p class="eyebrow">Menorca</p>
+        <h3>Restaurants</h3>
+        <p>The island's restaurants by area (Maó, Ciutadella, Fornells &amp; more) — sortable, with addresses and season notes.</p>
         <span class="go">Open guide →</span>
       </a>
     </div>

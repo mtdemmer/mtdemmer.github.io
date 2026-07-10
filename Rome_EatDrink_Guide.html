@@ -4,15 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rome Eat + Drink Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1d1b16; --muted:#6b6459; --line:#e6e0d6; --paper:#fbf8f3; --card:#fff;
     --accent:#7a2e2e; --closed:#b00000; --likely:#b9690f; --open:#2e7d32; --unknown:#8a8378; --heart:#c0392b;
+    --disp:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--paper);}
+  body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
   .wrap{max-width:1240px;margin:0 auto;padding:28px 20px 60px;}
-  h1{font-size:30px;margin:0 0 2px;letter-spacing:.3px}
+  h1{font-family:var(--disp);font-size:38px;font-weight:600;margin:0 0 2px;letter-spacing:.2px}
   .sub{color:var(--muted);font-size:14px;margin:0 0 16px;font-style:italic}
   .nav{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;margin:0 0 16px}
   .nav a{color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:5px 10px;border-radius:7px;background:var(--card)}
@@ -33,7 +37,7 @@
   table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
     border-radius:10px;overflow:hidden;font-size:14.5px;table-layout:fixed}
   col.c-fav{width:3.2%} col.c-name{width:12.5%} col.c-cat{width:9%} col.c-nh{width:11.5%}
-  col.c-sun{width:8.5%} col.c-open{width:12%} col.c-addr{width:15.3%} col.c-desc{width:28%}
+  col.c-drive{width:8%} col.c-sun{width:8.5%} col.c-open{width:11%} col.c-addr{width:14.5%} col.c-desc{width:26%}
   thead th{position:sticky;top:0;background:#f1ebe1;text-align:left;padding:10px 12px;cursor:pointer;
     font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;text-transform:uppercase;
     letter-spacing:.5px;color:#5a534a;border-bottom:1px solid var(--line);user-select:none}
@@ -46,10 +50,11 @@
   tbody tr:hover{background:#faf6ef}
   .heart{cursor:pointer;background:none;border:none;font-size:18px;line-height:1;color:#cbb8a8;padding:2px}
   .heart.on{color:var(--heart)}
-  .name{font-weight:bold;line-height:1.3}
+  .name{font-family:var(--disp);font-weight:600;font-size:17px;line-height:1.18;letter-spacing:.2px}
   .cat,.nh{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;line-height:1.35}
   .nh .sub{display:block;color:var(--muted);font-size:11.5px;margin-top:1px}
   .open{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4;color:#3a352c}
+  .drive{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4;color:#3a352c;white-space:nowrap}
   .addr{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4}
   .addr a{color:var(--accent);text-decoration:none}
   .addr a:hover{text-decoration:underline}
@@ -68,7 +73,7 @@
     tbody td.fav{position:absolute;top:8px;right:8px;padding:0}
     tbody td.suncell{display:inline-block;margin-right:8px}
     .name{font-size:16px;padding-right:34px}
-    td.cat::before,td.nh::before,td.addr::before,td.opencell::before{content:attr(data-label);
+    td.cat::before,td.nh::before,td.addr::before,td.opencell::before,td.drive::before{content:attr(data-label);
       font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:11px;text-transform:uppercase;
       letter-spacing:.5px;color:var(--muted);display:block;margin-bottom:1px}
   }
@@ -78,7 +83,7 @@
 <div class="wrap">
   <h1>Rome Eat + Drink Guide</h1>
   <p class="sub">From Yolo Journal's "Our Rome Black Book 2.0" — cafes, restaurants, bars &amp; aperitivo, with looked-up addresses. The Sun tag flags Sunday closures; the Open / closed column shows the weekly closing day. Click a header to sort; tap the heart to save favorites.</p>
-  <div class="nav"><a href="index.html">Home</a> &nbsp; <a href="Rome_EatDrink_Guide.html">Rome · Eat+Drink</a> &nbsp; <a href="Rome_Shopping_Guide.html">Rome · Shopping</a> &nbsp; <a href="Edinburgh_Guide.html">Edinburgh</a> &nbsp; <a href="Madrid_Guide.html">Madrid</a></div>
+  <div class="nav"><a href="index.html">Home</a> &nbsp; <a href="Rome_EatDrink_Guide.html">Rome · Eat+Drink</a> &nbsp; <a href="Rome_Shopping_Guide.html">Rome · Shopping</a> &nbsp; <a href="Edinburgh_Guide.html">Edinburgh</a> &nbsp; <a href="Madrid_Guide.html">Madrid</a> &nbsp; <a href="Menorca_Guide.html">Menorca</a></div>
   <div class="legend"><span><span class="dot" style="background:var(--open)"></span>Open Sun</span><span><span class="dot" style="background:var(--closed)"></span>Closed Sun</span><span><span class="dot" style="background:var(--likely)"></span>Likely closed Sun</span><span><span class="dot" style="background:var(--unknown)"></span>Sun unverified</span></div>
   <p class="legnote">Sunday is flagged at left. Monday is the other big one for restaurants (the fish markets are closed Sunday, so many places shut Monday) — shown in the Open / closed column. Hours shift seasonally; call ahead.</p>
   <div class="controls">
@@ -96,6 +101,7 @@
       <th data-k="Name">Place<span class="arr"></span></th>
       <th data-k="Category">Category<span class="arr"></span></th>
       <th data-k="Region">Area<span class="arr"></span></th>
+      
       <th data-k="SunKey">Sun<span class="arr"></span></th>
       <th data-k="Open">Open / closed<span class="arr"></span></th>
       <th data-k="Address">Address<span class="arr"></span></th>
@@ -236,6 +242,7 @@ function render(){
     let va,vb;
     if(sortKey==='hearted'){va=favs.has(a.Name)?0:1; vb=favs.has(b.Name)?0:1; if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
     else if(sortKey==='SunKey'){va=sunRank[a.SunKey]??9; vb=sunRank[b.SunKey]??9; if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
+    else if(sortKey==='DriveMin'){va=(a.DriveMin==null?99999:a.DriveMin); vb=(b.DriveMin==null?99999:b.DriveMin); if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
     else{va=(a[sortKey]||'').toLowerCase();vb=(b[sortKey]||'').toLowerCase();}
     if(va<vb)return -1*sortDir; if(va>vb)return 1*sortDir; return 0;
   });
@@ -247,6 +254,7 @@ function render(){
       <td class="name">${esc(d.Name)}</td>
       <td class="cat" data-label="Category">${esc(d.Category)}</td>
       <td class="nh" data-label="Area">${esc(d.Region)}${d.Neighborhood && d.Neighborhood!==d.Region ? '<span class="sub">'+esc(d.Neighborhood)+'</span>' : ''}</td>
+      
       <td class="suncell" data-label="Sun"><span class="pill ${pillClass[d.SunKey]||'s-unksun'}">${esc(d.SunText)}</span></td>
       <td class="open opencell" data-label="${esc(OPEN_LABEL)}">${esc(d.Open)}</td>
       <td class="addr" data-label="Address"><a href="${maps}" target="_blank" rel="noopener">${esc(d.Address)}</a></td>

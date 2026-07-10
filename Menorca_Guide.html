@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menorca Guide — Restaurants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1d1b16; --muted:#6b6459; --line:#e6e0d6; --paper:#fbf8f3; --card:#fff;
+    --accent:#7a2e2e; --closed:#b00000; --likely:#b9690f; --open:#2e7d32; --unknown:#8a8378; --heart:#c0392b;
+    --disp:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1240px;margin:0 auto;padding:28px 20px 60px;}
+  h1{font-family:var(--disp);font-size:38px;font-weight:600;margin:0 0 2px;letter-spacing:.2px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px;font-style:italic}
+  .nav{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;margin:0 0 16px}
+  .nav a{color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:5px 10px;border-radius:7px;background:var(--card)}
+  .nav a:hover{background:#f3ece1}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px;
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  .controls input,.controls select{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);
+    border-radius:8px;background:var(--card);color:var(--ink)}
+  .controls input[type=search]{min-width:220px;flex:1}
+  .heartbtn{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:8px;
+    padding:7px 12px;font-size:14px;color:var(--muted)}
+  .heartbtn.active{border-color:var(--heart);color:var(--heart);background:#fdecea}
+  .count{color:var(--muted);font-size:13px;font-family:-apple-system,Segoe UI,Roboto,sans-serif}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 6px;font-size:12.5px;
+    font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:var(--muted)}
+  .legnote{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;color:var(--muted);margin:0 0 14px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;overflow:hidden;font-size:14.5px;table-layout:fixed}
+  col.c-fav{width:3.2%} col.c-name{width:12.5%} col.c-cat{width:9%} col.c-nh{width:11.5%}
+  col.c-drive{width:8%} col.c-sun{width:8.5%} col.c-open{width:11%} col.c-addr{width:14.5%} col.c-desc{width:26%}
+  thead th{position:sticky;top:0;background:#f1ebe1;text-align:left;padding:10px 12px;cursor:pointer;
+    font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;text-transform:uppercase;
+    letter-spacing:.5px;color:#5a534a;border-bottom:1px solid var(--line);user-select:none}
+  thead th.favh{text-align:center;padding:10px 4px;color:var(--heart);font-size:14px}
+  thead th:hover{background:#ece4d7}
+  thead th .arr{color:var(--accent);font-size:11px;margin-left:3px}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:break-word}
+  tbody td.fav{text-align:center;padding:10px 2px}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#faf6ef}
+  .heart{cursor:pointer;background:none;border:none;font-size:18px;line-height:1;color:#cbb8a8;padding:2px}
+  .heart.on{color:var(--heart)}
+  .name{font-family:var(--disp);font-weight:600;font-size:17px;line-height:1.18;letter-spacing:.2px}
+  .cat,.nh{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;line-height:1.35}
+  .nh .sub{display:block;color:var(--muted);font-size:11.5px;margin-top:1px}
+  .open{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4;color:#3a352c}
+  .drive{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4;color:#3a352c;white-space:nowrap}
+  .addr{font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:12.5px;line-height:1.4}
+  .addr a{color:var(--accent);text-decoration:none}
+  .addr a:hover{text-decoration:underline}
+  .desc{color:#2f2a22;line-height:1.45}
+  .pill{display:inline-block;font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:11.5px;
+    font-weight:600;padding:3px 9px;border-radius:999px;line-height:1.45}
+  .s-closedsun{background:#fbe9e9;color:var(--closed)} .s-likelysun{background:#fbf0e0;color:var(--likely)}
+  .s-opensun{background:#e7f3e8;color:var(--open)} .s-unksun{background:#efece6;color:var(--unknown)}
+  @media(max-width:860px){
+    table,thead,tbody,tr,td,th{display:block}
+    thead{display:none}
+    table{border:none;background:transparent;table-layout:auto}
+    tbody tr{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;
+      margin-bottom:12px;padding:10px 12px 8px}
+    tbody td{border:none;padding:4px 0}
+    tbody td.fav{position:absolute;top:8px;right:8px;padding:0}
+    tbody td.suncell{display:inline-block;margin-right:8px}
+    .name{font-size:16px;padding-right:34px}
+    td.cat::before,td.nh::before,td.addr::before,td.opencell::before,td.drive::before{content:attr(data-label);
+      font-family:-apple-system,Segoe UI,Roboto,sans-serif;font-size:11px;text-transform:uppercase;
+      letter-spacing:.5px;color:var(--muted);display:block;margin-bottom:1px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Menorca Guide — Restaurants</h1>
+  <p class="sub">From Yolo Journal's "The Menorca List" — the island's restaurants in one sortable table with looked-up addresses and approximate drive times from your hotel (Santa Ponsa, Alaior). Filter by Category or Area, sort by Drive to find the closest, and tap a heart to save favorites. Many Menorca restaurants are seasonal (closed roughly Nov–Mar).</p>
+  <div class="nav"><a href="index.html">Home</a> &nbsp; <a href="Rome_EatDrink_Guide.html">Rome · Eat+Drink</a> &nbsp; <a href="Rome_Shopping_Guide.html">Rome · Shopping</a> &nbsp; <a href="Edinburgh_Guide.html">Edinburgh</a> &nbsp; <a href="Madrid_Guide.html">Madrid</a> &nbsp; <a href="Menorca_Guide.html">Menorca</a></div>
+  <div class="legend"><span><span class="dot" style="background:var(--open)"></span>Open Sun</span><span><span class="dot" style="background:var(--closed)"></span>Closed Sun</span><span><span class="dot" style="background:var(--likely)"></span>Likely closed Sun</span><span><span class="dot" style="background:var(--unknown)"></span>Sun unverified</span></div>
+  <p class="legnote">Drive times are approximate, by car from the Santa Ponsa (Fontenille) hotel in Alaior — central, so nothing is much over ~30 min; click the Drive header to sort nearest-first. Menorca dining is very seasonal — several places close in winter — so lean on the Open / season column and confirm before you go.</p>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search name, street, description…">
+    <select id="cat"><option value="">All categories</option></select>
+    <select id="nh"><option value="">All areas</option></select>
+    <select id="sun"><option value="">All Sundays</option></select>
+    <button id="favonly" class="heartbtn">♥ Hearted only</button>
+    <span class="count" id="count"></span>
+  </div>
+  <table>
+    <colgroup><col class="c-fav"><col class="c-name"><col class="c-cat"><col class="c-nh"><col class="c-drive"><col class="c-sun"><col class="c-open"><col class="c-addr"><col class="c-desc"></colgroup>
+    <thead><tr>
+      <th class="favh" data-k="hearted" title="Sort by hearted">&#9829;</th>
+      <th data-k="Name">Restaurant<span class="arr"></span></th>
+      <th data-k="Category">Category<span class="arr"></span></th>
+      <th data-k="Region">Area<span class="arr"></span></th>
+      <th data-k="DriveMin" title="Approx driving time from your hotel">Drive<span class="arr"></span></th>
+      <th data-k="SunKey">Sun<span class="arr"></span></th>
+      <th data-k="Open">Open / season<span class="arr"></span></th>
+      <th data-k="Address">Address<span class="arr"></span></th>
+      <th data-k="Description">Description<span class="arr"></span></th>
+    </tr></thead>
+    <tbody id="body"><tr><td class="fav"><button class="heart" data-id="El Raïs" aria-label="heart">♡</button></td><td class="name">El Raïs</td><td class="cat" data-label="Category">Rice</td><td class="nh" data-label="Area">Maó<span class=sub>Port of Maó</span></td><td class="drive" data-label="Drive">~20 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Closed Mon &amp; Tue (seasonal)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=El%20Ra%C3%AFs%2C%20Moll%20de%20Llevant%20314%2C%20Ma%C3%B3%2C%20Menorca" target="_blank" rel="noopener">Moll de Llevant 314, Maó, Menorca</a></td><td class="desc">A harbour-front terrace over the water, known for its rice dishes (Grup Ses Forquilles).</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Can Vermut" aria-label="heart">♡</button></td><td class="name">Can Vermut</td><td class="cat" data-label="Category">Tapas &amp; Bar</td><td class="nh" data-label="Area">Maó<span class=sub>Port of Maó</span></td><td class="drive" data-label="Drive">~20 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Hours vary — verify</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Can%20Vermut%2C%20Moll%20de%20Llevant%20176%2C%20Ma%C3%B3%2C%20Menorca" target="_blank" rel="noopener">Moll de Llevant 176, Maó, Menorca</a></td><td class="desc">A casual tapas-and-vermouth spot on the Maó harbour, with pavement tables and port views. (The guide&#x27;s &#x27;El Bistro Can Vermut&#x27;.)</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Cap Roig" aria-label="heart">♡</button></td><td class="name">Cap Roig</td><td class="cat" data-label="Category">Seafood</td><td class="nh" data-label="Area">Maó<span class=sub>Sa Mesquida</span></td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Closed Wednesdays (seasonal)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Cap%20Roig%2C%20Carrer%20Gran%20de%20Sa%20Mesquida%2013%2C%20Sa%20Mesquida%2C%20Menorca" target="_blank" rel="noopener">Carrer Gran de Sa Mesquida 13, Sa Mesquida, Menorca</a></td><td class="desc">On the sea in Sa Mesquida since 1983 — seafood and lobster four ways (grilled, stew, soupy rice, paella). ⚓ Reachable by boat — anchor off the Sa Mesquida cove.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Quitapenas" aria-label="heart">♡</button></td><td class="name">Quitapenas</td><td class="cat" data-label="Category">Beach</td><td class="nh" data-label="Area">Sant Lluís<span class=sub>Binibeca</span></td><td class="drive" data-label="Drive">~30 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal — verify</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Quitapenas%2C%20Ctra.%20de%20Binibeca%20km%202.5%2C%20Sant%20Llu%C3%ADs%2C%20Menorca" target="_blank" rel="noopener">Ctra. de Binibeca km 2.5, Sant Lluís, Menorca</a></td><td class="desc">A casual country beach-style spot outside town.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Sa Pedrera d&#x27;es Pujol" aria-label="heart">♡</button></td><td class="name">Sa Pedrera d&#x27;es Pujol</td><td class="cat" data-label="Category">Rice</td><td class="nh" data-label="Area">Sant Lluís</td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-closedsun">Closed Sun</span></td><td class="open opencell" data-label="Open / season">Closed Sundays (seasonal)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sa%20Pedrera%20d%27es%20Pujol%2C%20Cam%C3%AD%20des%20Pujol%2014%2C%20Sant%20Llu%C3%ADs%2C%20Menorca" target="_blank" rel="noopener">Camí des Pujol 14, Sant Lluís, Menorca</a></td><td class="desc">Modern Menorcan rice, fish and meat in a former sandstone quarry.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Passió Mediterrània" aria-label="heart">♡</button></td><td class="name">Passió Mediterrània</td><td class="cat" data-label="Category">Mediterranean</td><td class="nh" data-label="Area">Maó<span class=sub>Port of Maó</span></td><td class="drive" data-label="Drive">~20 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Hours vary — verify</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Passi%C3%B3%20Mediterr%C3%A0nia%2C%20Moll%20de%20Llevant%20298%2C%20Ma%C3%B3%2C%20Menorca" target="_blank" rel="noopener">Moll de Llevant 298, Maó, Menorca</a></td><td class="desc">Km-0 / Slow Food Mediterranean on the Maó harbour, known for its octopus.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Cantina (Hauser &amp; Wirth)" aria-label="heart">♡</button></td><td class="name">Cantina (Hauser &amp; Wirth)</td><td class="cat" data-label="Category">Mediterranean</td><td class="nh" data-label="Area">Maó<span class=sub>Isla del Rey (by boat)</span></td><td class="drive" data-label="Drive">~20 min + boat</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal ~Apr–Oct</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Cantina%20%28Hauser%20%26%20Wirth%29%2C%20Illa%20del%20Rei%2C%20Port%20of%20Ma%C3%B3%20%28shuttle%20from%20Moll%20de%20Llevant%2061%29%2C%20Menorca" target="_blank" rel="noopener">Illa del Rei, Port of Maó (shuttle from Moll de Llevant 61), Menorca</a></td><td class="desc">The restaurant at the Hauser &amp; Wirth gallery — straight out of a Spanish fishing village; Menorcan produce, fish and fire-cooked dishes. Reached by shuttle boat. ⚓ Boat only — reached by shuttle boat across Maó harbour.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Sa Llagosta" aria-label="heart">♡</button></td><td class="name">Sa Llagosta</td><td class="cat" data-label="Category">Seafood</td><td class="nh" data-label="Area">Fornells</td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal ~Apr–Aug (lobster season)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sa%20Llagosta%2C%20Carrer%20Gabriel%20Gelabert%2012%2C%20Fornells%2C%20Menorca" target="_blank" rel="noopener">Carrer Gabriel Gelabert 12, Fornells, Menorca</a></td><td class="desc">A Fornells landmark for caldereta de llagosta (lobster stew), from chef David Coca. ⚓ Reachable by boat — moor in Fornells harbour.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Es Bruc" aria-label="heart">♡</button></td><td class="name">Es Bruc</td><td class="cat" data-label="Category">Beach</td><td class="nh" data-label="Area">South Coast<span class=sub>Sant Tomàs</span></td><td class="drive" data-label="Drive">~20 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Summer only</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Es%20Bruc%2C%20Platja%20de%20Sant%20Tom%C3%A0s%20/%20Sant%20Adeodato%2C%20Es%20Migjorn%20Gran%2C%20Menorca" target="_blank" rel="noopener">Platja de Sant Tomàs / Sant Adeodato, Es Migjorn Gran, Menorca</a></td><td class="desc">An iconic beach chiringuito since 1950 — Mediterranean fare, fresh fish, salads and tapas right on the sand. ⚓ Reachable by boat — anchor off Sant Tomàs beach.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Mesón El Gallo" aria-label="heart">♡</button></td><td class="name">Mesón El Gallo</td><td class="cat" data-label="Category">Meat</td><td class="nh" data-label="Area">Center<span class=sub>Ferreries</span></td><td class="drive" data-label="Drive">~15 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal (closed ~Nov–Mar)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Mes%C3%B3n%20El%20Gallo%2C%20Ctra.%20Cala%20Galdana%20km%201.5%2C%20Ferreries%2C%20Menorca" target="_blank" rel="noopener">Ctra. Cala Galdana km 1.5, Ferreries, Menorca</a></td><td class="desc">A family grill house in an old estate near Ferreries, famed for sirloin with Menorcan cheese sauce.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Isabella Beach Club" aria-label="heart">♡</button></td><td class="name">Isabella Beach Club</td><td class="cat" data-label="Category">Beach</td><td class="nh" data-label="Area">Fornells<span class=sub>Platges de Fornells</span></td><td class="drive" data-label="Drive">~30 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal ~May–Sep, evenings</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Isabella%20Beach%20Club%2C%20Carrer%20Tramuntana%20s/n%2C%20Platges%20de%20Fornells%20%28Cala%20Tirant%29%2C%20Menorca" target="_blank" rel="noopener">Carrer Tramuntana s/n, Platges de Fornells (Cala Tirant), Menorca</a></td><td class="desc">A cliff-top beach club with Mediterranean–Japanese fusion, cocktails and famous sunset views (from the Cova d&#x27;en Xoroi owners). ⚓ Reachable by boat — anchor off Cala Tirant / Platges de Fornells.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Torralbenc" aria-label="heart">♡</button></td><td class="name">Torralbenc</td><td class="cat" data-label="Category">Mediterranean</td><td class="nh" data-label="Area">Center<span class=sub>Alaior</span></td><td class="drive" data-label="Drive">~10 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal (daily in season)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Torralbenc%2C%20Ctra.%20Ma%C3%B3%E2%80%93Cala%20en%20Porter%20km%2010%2C%20Alaior%2C%20Menorca" target="_blank" rel="noopener">Ctra. Maó–Cala en Porter km 10, Alaior, Menorca</a></td><td class="desc">The restaurant of the Torralbenc hotel among the vineyards — Basque-influenced cooking from local, organic Menorcan produce.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Cafè Balear" aria-label="heart">♡</button></td><td class="name">Cafè Balear</td><td class="cat" data-label="Category">Seafood</td><td class="nh" data-label="Area">Ciutadella<span class=sub>Port of Ciutadella</span></td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-opensun">Open Sun</span></td><td class="open opencell" data-label="Open / season">Varies by season (often closed Mon; closed in winter)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Caf%C3%A8%20Balear%2C%20Moll%20de%20Ciutadella%20%28port%29%2C%20Ciutadella%2C%20Menorca" target="_blank" rel="noopener">Moll de Ciutadella (port), Ciutadella, Menorca</a></td><td class="desc">A Ciutadella harbour institution since the 1970s — fish caught daily on their own boat. ⚓ Reachable by boat — right on Ciutadella&#x27;s port.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="S&#x27;Amarador" aria-label="heart">♡</button></td><td class="name">S&#x27;Amarador</td><td class="cat" data-label="Category">Seafood</td><td class="nh" data-label="Area">Ciutadella<span class=sub>Port of Ciutadella</span></td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Seasonal — verify</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=S%27Amarador%2C%20Carrer%20Pere%20Capllonch%2042%2C%20Ciutadella%2C%20Menorca" target="_blank" rel="noopener">Carrer Pere Capllonch 42, Ciutadella, Menorca</a></td><td class="desc">A traditional seafood house with a prized terrace over the harbour — seafood rice, stews and grilled island fish. ⚓ Reachable by boat — terrace over Ciutadella&#x27;s harbour.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Es Tast de na Sílvia" aria-label="heart">♡</button></td><td class="name">Es Tast de na Sílvia</td><td class="cat" data-label="Category">Mediterranean</td><td class="nh" data-label="Area">Ciutadella<span class=sub>Old town</span></td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-unksun">Sun unverified</span></td><td class="open opencell" data-label="Open / season">Closed Tuesdays (seasonal)</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Es%20Tast%20de%20na%20S%C3%ADlvia%2C%20Carrer%20de%20Santa%20Clara%2014%2C%20Ciutadella%2C%20Menorca" target="_blank" rel="noopener">Carrer de Santa Clara 14, Ciutadella, Menorca</a></td><td class="desc">The Balearics&#x27; only Slow Food &amp; Km0-certified restaurant (chef Sílvia Anglada) — a daily, market-driven menu.</td></tr>
+<tr><td class="fav"><button class="heart" data-id="Ulisses" aria-label="heart">♡</button></td><td class="name">Ulisses</td><td class="cat" data-label="Category">Tapas &amp; Bar</td><td class="nh" data-label="Area">Ciutadella<span class=sub>Old town (by the market)</span></td><td class="drive" data-label="Drive">~25 min</td><td class="suncell" data-label="Sun"><span class="pill s-closedsun">Closed Sun</span></td><td class="open opencell" data-label="Open / season">Closed Sundays</td><td class="addr" data-label="Address"><a href="https://www.google.com/maps/search/?api=1&amp;query=Ulisses%2C%20Pla%C3%A7a%20de%20la%20Llibertat%2022%2C%20Ciutadella%2C%20Menorca" target="_blank" rel="noopener">Plaça de la Llibertat 22, Ciutadella, Menorca</a></td><td class="desc">A wine bar / craft-cocktail spot under the market arches — Mediterranean tapas from the market and their own fishing boats.</td></tr></tbody>
+  </table>
+</div>
+<script>
+const DATA=[{"Name": "El Raïs", "Category": "Rice", "Region": "Maó", "Neighborhood": "Port of Maó", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Closed Mon & Tue (seasonal)", "DriveMin": 20, "DriveText": "~20 min", "Address": "Moll de Llevant 314, Maó, Menorca", "Description": "A harbour-front terrace over the water, known for its rice dishes (Grup Ses Forquilles)."}, {"Name": "Can Vermut", "Category": "Tapas & Bar", "Region": "Maó", "Neighborhood": "Port of Maó", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Hours vary — verify", "DriveMin": 20, "DriveText": "~20 min", "Address": "Moll de Llevant 176, Maó, Menorca", "Description": "A casual tapas-and-vermouth spot on the Maó harbour, with pavement tables and port views. (The guide's 'El Bistro Can Vermut'.)"}, {"Name": "Cap Roig", "Category": "Seafood", "Region": "Maó", "Neighborhood": "Sa Mesquida", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Closed Wednesdays (seasonal)", "DriveMin": 25, "DriveText": "~25 min", "Address": "Carrer Gran de Sa Mesquida 13, Sa Mesquida, Menorca", "Description": "On the sea in Sa Mesquida since 1983 — seafood and lobster four ways (grilled, stew, soupy rice, paella). ⚓ Reachable by boat — anchor off the Sa Mesquida cove."}, {"Name": "Quitapenas", "Category": "Beach", "Region": "Sant Lluís", "Neighborhood": "Binibeca", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal — verify", "DriveMin": 30, "DriveText": "~30 min", "Address": "Ctra. de Binibeca km 2.5, Sant Lluís, Menorca", "Description": "A casual country beach-style spot outside town."}, {"Name": "Sa Pedrera d'es Pujol", "Category": "Rice", "Region": "Sant Lluís", "Neighborhood": "Sant Lluís", "SunKey": "closedsun", "SunText": "Closed Sun", "Open": "Closed Sundays (seasonal)", "DriveMin": 25, "DriveText": "~25 min", "Address": "Camí des Pujol 14, Sant Lluís, Menorca", "Description": "Modern Menorcan rice, fish and meat in a former sandstone quarry."}, {"Name": "Passió Mediterrània", "Category": "Mediterranean", "Region": "Maó", "Neighborhood": "Port of Maó", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Hours vary — verify", "DriveMin": 20, "DriveText": "~20 min", "Address": "Moll de Llevant 298, Maó, Menorca", "Description": "Km-0 / Slow Food Mediterranean on the Maó harbour, known for its octopus."}, {"Name": "Cantina (Hauser & Wirth)", "Category": "Mediterranean", "Region": "Maó", "Neighborhood": "Isla del Rey (by boat)", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal ~Apr–Oct", "DriveMin": 20, "DriveText": "~20 min + boat", "Address": "Illa del Rei, Port of Maó (shuttle from Moll de Llevant 61), Menorca", "Description": "The restaurant at the Hauser & Wirth gallery — straight out of a Spanish fishing village; Menorcan produce, fish and fire-cooked dishes. Reached by shuttle boat. ⚓ Boat only — reached by shuttle boat across Maó harbour."}, {"Name": "Sa Llagosta", "Category": "Seafood", "Region": "Fornells", "Neighborhood": "Fornells", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal ~Apr–Aug (lobster season)", "DriveMin": 25, "DriveText": "~25 min", "Address": "Carrer Gabriel Gelabert 12, Fornells, Menorca", "Description": "A Fornells landmark for caldereta de llagosta (lobster stew), from chef David Coca. ⚓ Reachable by boat — moor in Fornells harbour."}, {"Name": "Es Bruc", "Category": "Beach", "Region": "South Coast", "Neighborhood": "Sant Tomàs", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Summer only", "DriveMin": 20, "DriveText": "~20 min", "Address": "Platja de Sant Tomàs / Sant Adeodato, Es Migjorn Gran, Menorca", "Description": "An iconic beach chiringuito since 1950 — Mediterranean fare, fresh fish, salads and tapas right on the sand. ⚓ Reachable by boat — anchor off Sant Tomàs beach."}, {"Name": "Mesón El Gallo", "Category": "Meat", "Region": "Center", "Neighborhood": "Ferreries", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal (closed ~Nov–Mar)", "DriveMin": 15, "DriveText": "~15 min", "Address": "Ctra. Cala Galdana km 1.5, Ferreries, Menorca", "Description": "A family grill house in an old estate near Ferreries, famed for sirloin with Menorcan cheese sauce."}, {"Name": "Isabella Beach Club", "Category": "Beach", "Region": "Fornells", "Neighborhood": "Platges de Fornells", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal ~May–Sep, evenings", "DriveMin": 30, "DriveText": "~30 min", "Address": "Carrer Tramuntana s/n, Platges de Fornells (Cala Tirant), Menorca", "Description": "A cliff-top beach club with Mediterranean–Japanese fusion, cocktails and famous sunset views (from the Cova d'en Xoroi owners). ⚓ Reachable by boat — anchor off Cala Tirant / Platges de Fornells."}, {"Name": "Torralbenc", "Category": "Mediterranean", "Region": "Center", "Neighborhood": "Alaior", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal (daily in season)", "DriveMin": 10, "DriveText": "~10 min", "Address": "Ctra. Maó–Cala en Porter km 10, Alaior, Menorca", "Description": "The restaurant of the Torralbenc hotel among the vineyards — Basque-influenced cooking from local, organic Menorcan produce."}, {"Name": "Cafè Balear", "Category": "Seafood", "Region": "Ciutadella", "Neighborhood": "Port of Ciutadella", "SunKey": "opensun", "SunText": "Open Sun", "Open": "Varies by season (often closed Mon; closed in winter)", "DriveMin": 25, "DriveText": "~25 min", "Address": "Moll de Ciutadella (port), Ciutadella, Menorca", "Description": "A Ciutadella harbour institution since the 1970s — fish caught daily on their own boat. ⚓ Reachable by boat — right on Ciutadella's port."}, {"Name": "S'Amarador", "Category": "Seafood", "Region": "Ciutadella", "Neighborhood": "Port of Ciutadella", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Seasonal — verify", "DriveMin": 25, "DriveText": "~25 min", "Address": "Carrer Pere Capllonch 42, Ciutadella, Menorca", "Description": "A traditional seafood house with a prized terrace over the harbour — seafood rice, stews and grilled island fish. ⚓ Reachable by boat — terrace over Ciutadella's harbour."}, {"Name": "Es Tast de na Sílvia", "Category": "Mediterranean", "Region": "Ciutadella", "Neighborhood": "Old town", "SunKey": "unksun", "SunText": "Sun unverified", "Open": "Closed Tuesdays (seasonal)", "DriveMin": 25, "DriveText": "~25 min", "Address": "Carrer de Santa Clara 14, Ciutadella, Menorca", "Description": "The Balearics' only Slow Food & Km0-certified restaurant (chef Sílvia Anglada) — a daily, market-driven menu."}, {"Name": "Ulisses", "Category": "Tapas & Bar", "Region": "Ciutadella", "Neighborhood": "Old town (by the market)", "SunKey": "closedsun", "SunText": "Closed Sun", "Open": "Closed Sundays", "DriveMin": 25, "DriveText": "~25 min", "Address": "Plaça de la Llibertat 22, Ciutadella, Menorca", "Description": "A wine bar / craft-cocktail spot under the market arches — Mediterranean tapas from the market and their own fishing boats."}];
+const STORAGE="menorca_hearts";
+const OPEN_LABEL="Open / season";
+const sunRank={opensun:0,unksun:1,likelysun:2,closedsun:3};
+const pillClass={closedsun:'s-closedsun',opensun:'s-opensun',likelysun:'s-likelysun',unksun:'s-unksun'};
+let sortKey="Name", sortDir=1, favOnly=false;
+
+// favorites (localStorage with safe fallback for file:// in some browsers)
+let favs=new Set();
+try{const raw=localStorage.getItem(STORAGE); if(raw) favs=new Set(JSON.parse(raw));}catch(e){}
+function saveFavs(){try{localStorage.setItem(STORAGE, JSON.stringify([...favs]));}catch(e){}}
+
+const q=document.getElementById('q'),catSel=document.getElementById('cat'),nhSel=document.getElementById('nh'),
+      sunSel=document.getElementById('sun'),body=document.getElementById('body'),countEl=document.getElementById('count'),
+      favBtn=document.getElementById('favonly');
+
+[...new Set(DATA.map(d=>d.Category))].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSel.appendChild(o);});
+[...new Set(DATA.map(d=>d.Region))].sort().forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;nhSel.appendChild(o);});
+[...new Set(DATA.map(d=>d.SunText))].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sunSel.appendChild(o);});
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function render(){
+  const term=q.value.trim().toLowerCase(),fc=catSel.value,fn=nhSel.value,fs=sunSel.value;
+  let rows=DATA.filter(d=>{
+    if(favOnly && !favs.has(d.Name)) return false;
+    if(fc&&d.Category!==fc)return false;
+    if(fn&&d.Region!==fn)return false;
+    if(fs&&d.SunText!==fs)return false;
+    if(term){const hay=(d.Name+' '+d.Category+' '+d.Region+' '+d.Neighborhood+' '+d.Address+' '+d.Description+' '+d.SunText+' '+d.Open).toLowerCase(); if(!hay.includes(term))return false;}
+    return true;
+  });
+  rows.sort((a,b)=>{
+    let va,vb;
+    if(sortKey==='hearted'){va=favs.has(a.Name)?0:1; vb=favs.has(b.Name)?0:1; if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
+    else if(sortKey==='SunKey'){va=sunRank[a.SunKey]??9; vb=sunRank[b.SunKey]??9; if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
+    else if(sortKey==='DriveMin'){va=(a.DriveMin==null?99999:a.DriveMin); vb=(b.DriveMin==null?99999:b.DriveMin); if(va!==vb)return (va-vb)*sortDir; va=a.Name.toLowerCase();vb=b.Name.toLowerCase();}
+    else{va=(a[sortKey]||'').toLowerCase();vb=(b[sortKey]||'').toLowerCase();}
+    if(va<vb)return -1*sortDir; if(va>vb)return 1*sortDir; return 0;
+  });
+  body.innerHTML=rows.map(d=>{
+    const maps='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(d.Name+', '+d.Address);
+    const on=favs.has(d.Name);
+    return `<tr>
+      <td class="fav"><button class="heart ${on?'on':''}" data-id="${esc(d.Name)}" aria-label="heart" title="Save">${on?'♥':'♡'}</button></td>
+      <td class="name">${esc(d.Name)}</td>
+      <td class="cat" data-label="Category">${esc(d.Category)}</td>
+      <td class="nh" data-label="Area">${esc(d.Region)}${d.Neighborhood && d.Neighborhood!==d.Region ? '<span class="sub">'+esc(d.Neighborhood)+'</span>' : ''}</td>
+      <td class="drive" data-label="Drive">${d.DriveText?esc(d.DriveText):''}</td>
+      <td class="suncell" data-label="Sun"><span class="pill ${pillClass[d.SunKey]||'s-unksun'}">${esc(d.SunText)}</span></td>
+      <td class="open opencell" data-label="${esc(OPEN_LABEL)}">${esc(d.Open)}</td>
+      <td class="addr" data-label="Address"><a href="${maps}" target="_blank" rel="noopener">${esc(d.Address)}</a></td>
+      <td class="desc">${esc(d.Description)}</td>
+    </tr>`;
+  }).join('');
+  const h=DATA.filter(d=>favs.has(d.Name)).length;
+  countEl.textContent=rows.length+' of '+DATA.length+' • '+h+' hearted';
+  document.querySelectorAll('thead th').forEach(th=>{const a=th.querySelector('.arr'); if(a) a.textContent=th.dataset.k===sortKey?(sortDir>0?'▲':'▼'):'';});
+}
+body.addEventListener('click',e=>{const h=e.target.closest('.heart'); if(!h)return; const id=h.dataset.id;
+  if(favs.has(id))favs.delete(id); else favs.add(id); saveFavs(); render();});
+document.querySelectorAll('thead th').forEach(th=>{th.addEventListener('click',()=>{const k=th.dataset.k; if(k===sortKey)sortDir*=-1; else{sortKey=k;sortDir=1;} render();});});
+favBtn.addEventListener('click',()=>{favOnly=!favOnly; favBtn.classList.toggle('active',favOnly); render();});
+[q,catSel,nhSel,sunSel].forEach(el=>el.addEventListener('input',render));
+render();
+</script>
+</body>
+</html>
